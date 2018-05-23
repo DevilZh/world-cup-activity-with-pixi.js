@@ -1,0 +1,6 @@
+class Part {
+  constructor() {
+
+  }
+
+}
