@@ -1,6 +1,5 @@
 import babel from "rollup-plugin-babel";
 import commonjs from "rollup-plugin-commonjs";
-import resolve from 'rollup-plugin-node-resolve';
 
 export default {
   input: './js/App.js',
@@ -11,7 +10,6 @@ export default {
     name: 'app'
   },
   plugins: [
-    resolve(),
     commonjs(),
     babel({
       exclude: 'node_modules/**',

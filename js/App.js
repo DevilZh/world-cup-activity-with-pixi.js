@@ -47,6 +47,7 @@ class App {
   constructor() {
     this.container = {};
     this.charactors = [];
+    this.initial();
   }
 
   initial() {
@@ -92,7 +93,4 @@ class App {
   }
 }
 
-const app = new App();
-app.initial();
-
-export default app;
+export default new App();
