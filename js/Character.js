@@ -42,6 +42,7 @@ class Charactor extends Element{
     this.container.addChild(spriteLeg);
     this.container.addChild(spriteBody);
     this.container.addChild(spriteHead);
+    app.layerCharacter.addChild(this.container);
   }
 }
 

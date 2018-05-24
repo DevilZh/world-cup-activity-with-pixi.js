@@ -1,13 +1,13 @@
 import app from './App';
 
-const { Container, Sprite, loader} = PIXI;
+const { Container, Sprite, loader, Graphics} = PIXI;
 const resources = loader.resources;
 
 export default class Element {
   constructor() {
     this.wrapConfig = {
-      width: 100,
-      height: 210,
+      width: 150,
+      height: 300,
       x: 100,
       y: 100
     }
@@ -23,9 +23,16 @@ export default class Element {
     container.width = width;
     container.height = height;
     container.position.set( x, y);
-    app.container.stage.addChild(container);
     container.interactive = true;
     this.bindEvent();
+    this.stokeBorder();
+  }
+  stokeBorder() {
+    const { width, height } = this.wrapConfig;
+    const graphics = new Graphics();
+    graphics.lineStyle(1, 0x00FF00, 1);
+    graphics.drawRect(0, 0, width, height);
+    this.container.addChild(graphics);
   }
   bindEvent() {
     this.container

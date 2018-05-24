@@ -1,32 +1,32 @@
 import Charactor from './Character';
 
-const  { Application, Container, Sprite, loader }  = PIXI;
+const { Application, Container, Sprite, loader } = PIXI;
 const resources = loader.resources;
 
 const data = [
   {
-    classify: 'head',
+    catagory: 'head',
     url: '/img/head.1.png',
     width: 93,
     height: 50.5
   },
   {
-    classify: 'body',
+    catagory: 'body',
     url: '/img/body.1.png',
     width: 146.5,
     height: 158
   },
   {
-    classify: 'leg',
+    catagory: 'leg',
     url: '/img/leg.1.png',
     width: 143.5,
     height: 84.5
   },
   {
-    classify: 'body',
+    catagory: 'body',
     url: '/img/body.2.png',
-    width: 115,
-    height: 118
+    width: 146.5,
+    height: 158
   },
 ]
 
@@ -45,26 +45,46 @@ const data = [
 
 class App {
   constructor() {
-    this.container = {};
-    this.charactors = [];
+    // 根容器
+    this.rootContainer = {};
+    // 装饰层
+    this.layerOrnament = {};
+    // 元素层
+    this.layerCharacter = {};
+
+    this.elements = [];
     this.initial();
   }
 
   initial() {
     // load sprite
     loader.add(data)
-    .on("progress", this.loadProgressHandler)
-    .load((res)=>{
-      const charactor = new Charactor(data[0], data[1], data[2]);
-      this.charactors.push(charactor);
-    });
-
-    this.container = new Application({
-      width: 414,
-      height: 700,
+      .on("progress", this.loadProgressHandler)
+      .load((res) => {
+        const charactor = new Charactor(data[0], data[1], data[2]);
+        const charactor1 = new Charactor(data[0], data[3], data[2]);
+        const charactor2 = new Charactor(data[0], data[1], data[2]);
+        this.elements.push(charactor);
+        this.elements.push(charactor1);
+        this.elements.push(charactor2);
+      });
+    const { clientWidth, clientHeight} = document.documentElement;
+    this.rootContainer = new Application({
+      width: clientWidth,
+      height: clientHeight,
       backgroundColor: '0xcccccc'
     });
-    document.body.appendChild(this.container.view);
+    this.layerOrnament = new Container({
+      width: clientWidth,
+      height: clientHeight
+    });
+    this.layerCharacter = new Container({
+      width: clientWidth,
+      height: clientHeight
+    })
+    document.body.appendChild(this.rootContainer.view);
+    this.rootContainer.stage.addChild(this.layerOrnament)
+    this.rootContainer.stage.addChild(this.layerCharacter)
   }
   // progress bar
   loadProgressHandler(loader, resource) {
